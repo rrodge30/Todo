@@ -8,9 +8,10 @@ export default {
   },
   computed: {
     ...mapState('todo', ['todos']),
-    unfinishedTodoList() {
+    unfinishedTodoList(){
       return this.todos.filter(todo => !todo.completed)
     },
+
     completedTodoList() {
       return this.todos.filter(todo => todo.completed)
     }
@@ -18,8 +19,11 @@ export default {
   methods: {
     ...mapActions('todo',['addTodo', 'completeTodo']),
     createTodo() {
-      this.addTodo({ text: this.newTodo, completed: false });
-      this.newTodo = '';
+      if (this.newTodo !== ""){
+        this.addTodo({ text: this.newTodo, completed: false });
+        this.newTodo = '';
+      }
+
     },
     toggleShowCompleted(val) {
       this.$emit('toggle', val)
